@@ -3,7 +3,7 @@ terraform {
     bucket         = "cloudhub2"
     region         = "eu-west-2"
     key            = "Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project"
-    dynamodb_table = "Lock-Files"
+    dynamodb_table = "cloudhub-tabe"
     encrypt        = true
   }
   required_version = ">=0.13.0"
