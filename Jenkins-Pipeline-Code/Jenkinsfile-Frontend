@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/AmanPathak-DevOps/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -82,13 +82,13 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/AmanPathak-DevOps/End-to-End-Kubernetes-Three-Tier-DevSecOps-Project.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
             }
         }
         stage('Update Deployment file') {
             environment {
-                GIT_REPO_NAME = "End-to-End-Kubernetes-Three-Tier-DevSecOps-Project"
-                GIT_USER_NAME = "AmanPathak-DevOps"
+                GIT_REPO_NAME = "Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project"
+                GIT_USER_NAME = "loyd-theophilus"
             }
             steps {
                 dir('Kubernetes-Manifests-file/Frontend') {
