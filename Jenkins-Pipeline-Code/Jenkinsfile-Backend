@@ -1,14 +1,14 @@
 pipeline {
     agent any 
     tools {
-        jdk 'jdk'
-        nodejs 'nodejs'
+        jdk 'jdk17'
+        nodejs 'nodejs21'
     }
     environment  {
         SCANNER_HOME=tool 'sonar-scanner'
         AWS_ACCOUNT_ID = credentials('ACCOUNT_ID')
         AWS_ECR_REPO_NAME = credentials('ECR_REPO2')
-        AWS_DEFAULT_REGION = 'us-east-1'
+        AWS_DEFAULT_REGION = 'eu-west-2'
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/"
     }
     stages {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
+                git branch: 'main', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -43,7 +43,7 @@ pipeline {
         stage('OWASP Dependency-Check Scan') {
             steps {
                 dir('Application-Code/backend') {
-                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                    dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-check'
                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
                 }
             }
@@ -82,7 +82,7 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git credentialsId: 'GITHUB', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
+                git branch: 'main', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
             }
         }
         stage('Update Deployment file') {
