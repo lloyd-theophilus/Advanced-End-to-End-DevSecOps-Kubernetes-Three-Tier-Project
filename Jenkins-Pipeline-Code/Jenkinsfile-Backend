@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
             }
         }
         stage('Sonarqube Analysis') {
@@ -82,7 +82,7 @@ pipeline {
         }
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
+                git credentialsId: 'GITHUB', url: 'https://github.com/lloyd-theophilus/Advanced-End-to-End-DevSecOps-Kubernetes-Three-Tier-Project.git'
             }
         }
         stage('Update Deployment file') {
@@ -103,7 +103,7 @@ pipeline {
                             sed -i "s/${AWS_ECR_REPO_NAME}:${imageTag}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}/" deployment.yaml
                             git add deployment.yaml
                             git commit -m "Update deployment Image to version \${BUILD_NUMBER}"
-                            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
+                            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                         '''
                     }
                 }
